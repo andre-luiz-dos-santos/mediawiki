@@ -61,6 +61,7 @@ if (preg_match('%(.*?)://([^:]+):([^@]+)@([^:]+):(\d+)/(.*)%', $_wgDBConnectionS
     $wgDBport = $regs[5][0];
     $wgDBname = $regs[6][0];
 } else {
+    print_r($_wgDBConnectionString);
     print_r(array_values($regs));
     die("Failed to parse DB connection string");
 }
