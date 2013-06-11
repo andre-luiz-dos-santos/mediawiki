@@ -139,3 +139,15 @@ $wgGroupPermissions['*']['read'] = false;
 # Add more configuration options below.
 
 require_once("$IP/extensions/Renameuser/Renameuser.php");
+require_once("$IP/extensions/PdfHandler/PdfHandler.php");
+require_once("$IP/extensions/WikiEditor/WikiEditor.php");
+
+#Enables use of WikiEditor by default but still allows users to disable it
+$wgDefaultUserOptions['usebetatoolbar'] = 1;
+$wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
+
+# Displays the Preview and Changes tabs
+$wgDefaultUserOptions['wikieditor-preview'] = 1;
+
+# Displays the Publish and Cancel buttons on the top right side
+$wgDefaultUserOptions['wikieditor-publish'] = 1;
