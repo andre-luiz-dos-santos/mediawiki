@@ -138,6 +138,33 @@ $wgGroupPermissions['*']['read'] = false;
 # End of automatically generated settings.
 # Add more configuration options below.
 
+# S3 filesystem
+$wgUploadDirectory = 'wiki-images';
+$wgUploadS3Bucket = 'eraumotorsports';
+$wgUploadS3SSL = false; // true if SSL should be used
+$wgPublicS3 = true; // true if public, false if authentication should be used
+$wgS3BaseUrl = "http".($wgUploadS3SSL?"s":"")."://s3.amazonaws.com/$wgUploadS3Bucket";
+$wgUploadBaseUrl = "$wgS3BaseUrl/$wgUploadDirectory";
+$wgLocalFileRepo = array(
+    'class' => 'LocalS3Repo',
+    'name' => 's3',
+    'directory' => $wgUploadDirectory,
+    'url' => $wgUploadBaseUrl ? $wgUploadBaseUrl . $wgUploadPath : $wgUploadPath,
+    'urlbase' => $wgS3BaseUrl ? $wgS3BaseUrl : "",
+    'hashLevels' => $wgHashedUploadDirectory ? 2 : 0,
+    'thumbScriptUrl' => $wgThumbnailScriptPath,
+    'transformVia404' => !$wgGenerateThumbnailOnParse,
+    'initialCapital' => $wgCapitalLinks,
+    'deletedDir' => $wgUploadDirectory.'/deleted',
+    'deletedHashLevels' => $wgFileStore['deleted']['hash'],
+    'AWS_ACCESS_KEY' => getenv('AWS_ACCESS_KEY_ID'),
+    'AWS_SECRET_KEY' => getenv('AWS_SECRET_ACCESS_KEY'),
+    'AWS_S3_BUCKET' => $wgUploadS3Bucket,
+    'AWS_S3_PUBLIC' => $wgPublicS3,
+    'AWS_S3_SSL' => $wgUploadS3SSL
+);
+
+require_once("$IP/extensions/LocalS3Repo/LocalS3Repo.php");
 require_once("$IP/extensions/Renameuser/Renameuser.php");
 require_once("$IP/extensions/PdfHandler/PdfHandler.php");
 require_once("$IP/extensions/WikiEditor/WikiEditor.php");
