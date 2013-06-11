@@ -138,3 +138,4 @@ $wgGroupPermissions['*']['read'] = false;
 # End of automatically generated settings.
 # Add more configuration options below.
 
+require_once("$IP/extensions/Renameuser/Renameuser.php");
