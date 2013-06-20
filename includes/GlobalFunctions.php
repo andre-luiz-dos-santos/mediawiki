@@ -1209,7 +1209,7 @@ function wfLogProfilingData() {
 		$forward .= ' from ' . $_SERVER['HTTP_FROM'];
 	}
 	if ( $forward ) {
-		$forward = "\t(proxied via {$_SERVER['REMOTE_ADDR']}{$forward})";
+		$forward = "\t(proxied via {$_SERVER['HTTP_CF_CONNECTING_IP']}{$forward})";
 	}
 	// Don't load $wgUser at this late stage just for statistics purposes
 	// @todo FIXME: We can detect some anons even if it is not loaded. See User::getId()
