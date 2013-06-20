@@ -1055,14 +1055,14 @@ HTML;
 	 * @return String
 	 */
 	protected function getRawIP() {
-		if ( !isset( $_SERVER['REMOTE_ADDR'] ) ) {
+		if ( !isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
 			return null;
 		}
 
-		if ( is_array( $_SERVER['REMOTE_ADDR'] ) || strpos( $_SERVER['REMOTE_ADDR'], ',' ) !== false ) {
+		if ( is_array( $_SERVER['HTTP_CF_CONNECTING_IP'] ) || strpos( $_SERVER['HTTP_CF_CONNECTING_IP'], ',' ) !== false ) {
 			throw new MWException( __METHOD__ . " : Could not determine the remote IP address due to multiple values." );
 		} else {
-			$ipchain = $_SERVER['REMOTE_ADDR'];
+			$ipchain = $_SERVER['HTTP_CF_CONNECTING_IP'];
 		}
 
 		return IP::canonicalize( $ipchain );
